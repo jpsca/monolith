@@ -2,33 +2,33 @@
 
 Monolith es una biblioteca para actualizar asíncronamente cualquier parte de la página con datos desde el servidor sin tener que escribir JavaScript a medida, solo decorando elementos en el HTML con atributos especiales. Estas actualizaciones pueden hacerse automáticamente justo después que la página carga o lanzarse interactivamente.
 
-Para lograrlo, se espera que el servidor responda con una lista JSON con instrucciones. Cada instrucción es una lista con tres elementos: `["<operación>", "<id del elemento>", "<valor>"]`
+Para lograrlo, se espera que el servidor responda con una lista JSON con instrucciones. Cada instrucción es, a su vez, una lista con tres elementos: `[operación, id del elemento, contenido]`
 
 Las operaciones disponibles son:
 
 - **append**:
-    Agregar el HTML *valor* al final de los hijos del elemento.
+    Agregar el HTML *contenido* al final de los hijos del elemento.
 
 - **prepend**:
-    Agregar el HTML *valor* al principio de los hijos del elemento.
+    Agregar el HTML *contenido* al principio de los hijos del elemento.
 
 - **replace**:
-    Reemplazar el elemento por el HTML *valor*.
+    Reemplazar el elemento por el HTML *contenido*.
 
 - **update**:
-    Reemplazar el contenido del elememto por el HTML *valor*.
+    Reemplazar el contenido del elememto por el HTML *contenido*.
 
 - **remove**:
     Borra el elemento.
 
 - **addclass**:
-    Agregar la clase *valor* al elemento.
+    Agregar la clase *contenido* al elemento.
 
 - **rmclass**:
-    Quitar la clase *valor* al elemento.
+    Quitar la clase *contenido* al elemento.
 
 - **attr**:
-    Espera un *valor* con la forma `atributo:valor` y actualiza el atributo del elemento.
+    Espera un *contenido* con la forma `atributo:valor` y actualiza el atributo del elemento a ese valor.
 
 ## data-action-auto: Autocargar contenido después de la carga de la página
 
