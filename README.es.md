@@ -30,25 +30,20 @@ Las operaciones disponibles son:
 - **attr**:
     Espera un *valor* con la forma `atributo:valor` y actualiza el atributo del elemento.
 
-- **morph**:
-    Modificar el elemento para que sea como *valor*. Usa la biblioteca `morphodom.js` para conservar
-    el foco, posición de scroll, etc.
-
-
-## Autocargar contenido después de la carga de la página
+## data-action-auto: Autocargar contenido después de la carga de la página
 
 ```html
-data-action-auto="<URL>"
+<div data-action-auto="URL">
 ```
 
-La idea es poder mostrar la página lo más rápido posible y luego usar esta función para cargar contenido secundario o que tome más tiempo en generarse. Además, de esta forma, cada sessión puede ser cacheada de forma independiente
+La idea es poder mostrar la página lo más rápido posible y luego usar esta función para cargar contenido secundario o que tome más tiempo en generarse. Además, de esta forma, cada sección puede ser cacheada de forma independiente.
 
-Para usarlo, basta decorar uno o más elemento con el atributo `data-action-auto`, y se generará un GET asíncrono a esa URL.
+Para usarlo, basta decorar uno o más elemento con el atributo `data-action-auto`, y se generará un GET asíncrono a esa URL inmediatamente después de cargar la página.
 
 NOTA: Aunque técnicamente no es necesario agregar este atributo a la sección en la que cargarás el nuevo contenido (el donde insertarlo depende de lo que indique el servidor), hacerlo así es más intuitivo.
 
 
-## Hacer cambios a la interfaz de forma interactiva
+## data-action: Actualizaciones interactivas
 
 ```html
 <form action="URL" method="POST" data-action>
@@ -59,7 +54,7 @@ NOTA: Aunque técnicamente no es necesario agregar este atributo a la sección e
 
 Este atributo trabajo solo agregado en elementos `<form>` o `<a>`. Funciona interceptando el envío del formulario o el click en el enlace. En vez del funcionamiento normal, el formulario genera un POST y el enlace un GET, ambos asíncronos, y en ambos casos se procesa la respuesta del servidor como instrucciones.
 
-Algunos ejemplos de uso:
+Algunos casos de uso:
 
 - Decorar un botón de "Agregar al carrito de compras", y como respuesta, cargar un nuevo elemento en la lista de productos seleccionados, actualizar el precio total, y mostrar un indicador en la cabecera.
 
@@ -68,17 +63,25 @@ Algunos ejemplos de uso:
 - Decorar un botón "Marcar todo como leído" para vaciar una lista de notificaciones en la cabecera.
 
 
-Para logar alguna de estas interacciones, se necesita apoyarse de unos comportamientos extra, que no necesitan interactuar con el servidor.
+## data-toggle: Un simple mostrar/ocultar
 
-### Extras
-
-## data-toggle="SELECTOR"
+```html
+<a data-toggle="ID">
+```
 
 Pone o quita la clase "hide" de los elementos seleccionados al hacerle click.
 
 Puede usarse para mostrar un popup (modal, dropdown, etc.) estático, o uno que se llene con un data-action.
 
-## data-popup
+Si se usa junto a un `data-action`, la acción solo se dispara cuando el elemento se muestra, no cuando se oculta.
 
-Cualquier click fuera de estos elementos le agregará la clase "hide" para ocultarlos
+
+## data-popup: Ocultar en el siguiente click
+
+
+```html
+<div data-popup>
+```
+
+Si un elemento con este atributo se muestra en la página, por un data-toggle o porque una acción lo insertó, cualquier click fuera de el le agregará la clase "hide" para ocultarlo.
 
