@@ -1,0 +1,15 @@
+{% from "cart/Header.html" import Header -%}
+{% from "cart/Body.html" import Body -%}
+{% from "cart/Cart.html" import Cart -%}
+
+{% extends "layout.html" %}
+
+{% block body %}
+<div class="cart-wrapper">
+	{{ Header() }}
+	<div class="cart-main">
+		{{ Body(products) }}
+		{{ Cart(items) }}
+	</div>
+</div>
+{% endblock %}

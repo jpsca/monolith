@@ -1,0 +1,9 @@
+{% macro Header(counter=2) -%}
+<header class="cart-header">
+    <a class="cart-resume">
+        {% if counter -%}
+        <span id="cart-resume-counter">{{ counter }}</span>
+        {%- endif %}
+    </a>
+</header>
+{%- endmacro %}

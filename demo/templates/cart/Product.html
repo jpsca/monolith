@@ -1,0 +1,9 @@
+{% macro Product(prod) -%}
+<div>
+    <h2>{{ prod.name }}</h2>
+    <div>S/<b>{{ prod.price }}</b></div>
+    <form action="/cart?product_id={{ prod.id }}" method="POST">
+        <button type="submit">Agregar</button>
+    </form>
+</div>
+{%- endmacro %}

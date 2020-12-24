@@ -1,0 +1,34 @@
+{% from "cart/Item.html" import Item -%}
+
+{% macro Cart(items=[], tax=0.18) -%}
+<aside class="cart">
+    <header>
+        Carrito de compras
+        <a>→</a>
+    </header>
+
+    <div id="cart-items">
+        {% for item in items %}{{ Item(item) }}{% endfor %}
+    </div>
+
+    {% if items -%}
+    {% set sub = items|sum(attribute="price") -%}
+    <footer>
+        <div>
+            <span>Sub-total:</span>
+            <span>S/<span id="cart-sub">{{ sub }}</span></span>
+        </div>
+        <div>
+            <span>I.G.V:</span>
+            <span>S/<span id="cart-igv">{{ sub * tax }}</span></span>
+        </div>
+        <div>
+            <span>TOTAL:</span>
+            <span>S/<span id="cart-total">{{ sub * (1 + tax) }}</span></span>
+        </div>
+    </footer>
+    {%- endif %}
+</aside>
+{%- endmacro %}
+
+{{ Cart(items) }}
