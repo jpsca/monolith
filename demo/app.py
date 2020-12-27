@@ -6,6 +6,8 @@ from models import db, seed_data, Cart, Product
 
 app = Flask(__name__)
 
+app.debug = True
+app.config["RELOADER"] = True
 app.config["SECRET_KEY"] = b'_5#y2L"F4Q8z\n\xec]/'
 app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///:memory:"
 app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
@@ -19,22 +21,46 @@ with app.app_context():
 
 @app.route("/")
 def index():
-    return render_template("index.html")
-
-
-@app.route("/cart")
-def cart():
     return render_template(
-        "cart/index.html",
+        "index.html",
         products=Product.get_all(),
-        items=Cart.get_all(),
+        counter=Cart.count(),
     )
 
 
-@app.route("/cart/add")
+@app.route("/lazy")
+def lazy():
+    return render_template("lazy.html")
+
+
+@app.route("/cart")
+def cart_index():
+    return render_template(
+        "cart/cart.html",
+        cart_items=Cart.get_all(),
+    )
+
+
+@app.route("/cart/add", methods=["POST"])
 def cart_add():
     product_id = request.args.get("product_id", type=int)
+    product = Product.first(id=product_id)
+    if not product:
+        return ""
+    Cart.add(product)
     return render_template(
-        "cart/Cart.html",
-        items=Cart.get_all(),
+        "cart/counter-update.html",
+        counter=Cart.count(),
+    )
+
+@app.route("/cart/remove", methods=["POST"])
+def cart_remove():
+    product_id = request.args.get("product_id", type=int)
+    product = Product.first(id=product_id)
+    if not product:
+        return ""
+    Cart.remove(product)
+    return render_template(
+        "cart/counter-update.html",
+        counter=Cart.count(),
     )

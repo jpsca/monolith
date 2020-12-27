@@ -1,0 +1,10 @@
+{% macro Header(counter) -%}
+<header class="cart-header">
+    <a class="cart-resume" href="{{ url_for('cart_index') }}">
+        <span
+            id="cart-resume-counter"
+            class="{% if not counter %}hide{% endif %}"
+        >{{ counter }}</span>
+    </a>
+</header>
+{%- endmacro %}

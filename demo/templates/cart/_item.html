@@ -1,0 +1,10 @@
+{% macro Item(cart_item) -%}
+<div class="cart-item">
+    <h2 class="cart-item-name">{{ cart_item.name }}</h2>
+    <div class="cart-item-price">S/<b>{{ cart_item.price}}</b></price>
+    <form action="{{ url_for('cart_remove', product_id=cart_item.product_id) }}" method="POST">
+        <button type="submit">&times;</button>
+    </form>
+</div>
+{%- endmacro %}
+

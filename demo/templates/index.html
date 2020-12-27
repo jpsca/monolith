@@ -1,6 +1,11 @@
-{% extends "layout.html" %}
+{% from "_Header.html" import Header -%}
+{% from "_Body.html" import Body -%}
 
-{% block body %}
-  <h1>Demos</h1>
-  <p><a href="/cart">Cart</a></p>
-{% endblock %}
+<div class="wrapper">
+	{{ Header(counter) }}
+	<div class="main">
+		{{ Body(products) }}
+		<div data-auto-load="{{ url_for('lazy') }}"></div>
+		<div id="cart"></div>
+	</div>
+</div>
