@@ -1,6 +1,8 @@
 # Monolith
 
-Monolith es una biblioteca para actualizar asíncronamente cualquier parte de la página con datos desde el servidor sin tener que escribir JavaScript a medida, solo decorando elementos en el HTML con atributos especiales. Estas actualizaciones pueden hacerse automáticamente justo después que la página carga o lanzarse interactivamente.
+Una biblioteca simple para un desarollo más elegante.
+
+Monolith es una biblioteca para actualizar asíncronamente cualquier parte de la página con datos desde el servidor sin tener que escribir JavaScript a medida, usando instrucciones desde el servidor. Estas actualizaciones pueden hacerse automáticamente justo después que la página carga o lanzarse interactivamente.
 
 Para lograrlo, se espera que el servidor responda con una lista JSON con instrucciones. Cada instrucción es, a su vez, una lista con tres elementos: `[operación, id del elemento, contenido]`
 
@@ -43,7 +45,7 @@ Para usarlo, basta decorar uno o más elemento con el atributo `data-action-auto
 NOTA: Aunque técnicamente no es necesario agregar este atributo a la sección en la que cargarás el nuevo contenido (el donde insertarlo depende de lo que indique el servidor), hacerlo así es más intuitivo.
 
 
-## data-action: Actualizaciones interactivas
+## Actualizaciones interactivas
 
 ```html
 <form action="URL" method="POST" data-action>

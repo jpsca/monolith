@@ -1,10 +1,10 @@
+{% from "_HeaderCounter.html" import HeaderCounter -%}
+
 {% macro Header(counter) -%}
 <header class="cart-header">
-    <a class="cart-resume" href="{{ url_for('cart_index') }}">
-        <span
-            id="cart-resume-counter"
-            class="{% if not counter %}hide{% endif %}"
-        >{{ counter }}</span>
-    </a>
+    <a href="{{ url_for('about') }}">About</a> |
+    <form action="{{ url_for('cart_index') }}" class="cart-resume" method="get">
+        Carrito {{ HeaderCounter(counter) }}
+    </form>
 </header>
 {%- endmacro %}

@@ -1,11 +1,17 @@
+{% extends "layout.html" %}
+{% block title %}Demo{% endblock %}
+
 {% from "_Header.html" import Header -%}
 {% from "_Body.html" import Body -%}
 
+{% block body %}
 <div class="wrapper">
 	{{ Header(counter) }}
 	<div class="main">
 		{{ Body(products) }}
 		<div data-auto-load="{{ url_for('lazy') }}"></div>
-		<div id="cart"></div>
+
+		<turbo-frame id="cart"></turbo-frame>
 	</div>
 </div>
+{% endblock %}

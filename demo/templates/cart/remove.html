@@ -1,0 +1,4 @@
+{% from "_HeaderCounter.html" import HeaderCounter -%}
+
+{{ stream.replace("header-counter", HeaderCounter(counter)) }}
+{% include "cart/cart.html" %}

@@ -2,6 +2,7 @@ from pathlib import Path
 from flask import Flask, render_template, request
 
 from models import db, seed_data, Cart, Product
+from turbo import render_update, turbo_stream
 
 
 app = Flask(__name__)
@@ -13,6 +14,9 @@ app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///:memory:"
 app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
 app.config["SQLALCHEMY_RECORD_QUERIES"] = False
 app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
+
+app.jinja_env.globals["stream"] = turbo_stream
+app.jinja_env.filters["stream"] = turbo_stream
 
 db.init_app(app)
 with app.app_context():
@@ -28,14 +32,21 @@ def index():
     )
 
 
+@app.route("/about")
+def about():
+    return render_template(
+        "about.html",
+    )
+
+
 @app.route("/lazy")
 def lazy():
-    return render_template("lazy.html")
+    return render_update("lazy.html")
 
 
 @app.route("/cart")
 def cart_index():
-    return render_template(
+    return render_update(
         "cart/cart.html",
         cart_items=Cart.get_all(),
     )
@@ -48,8 +59,8 @@ def cart_add():
     if not product:
         return ""
     Cart.add(product)
-    return render_template(
-        "cart/counter-update.html",
+    return render_update(
+        "cart/add.html",
         counter=Cart.count(),
     )
 
@@ -60,7 +71,9 @@ def cart_remove():
     if not product:
         return ""
     Cart.remove(product)
-    return render_template(
-        "cart/counter-update.html",
+
+    return render_update(
+        "cart/remove.html",
         counter=Cart.count(),
+        cart_items=Cart.get_all(),
     )
