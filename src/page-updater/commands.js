@@ -31,7 +31,3 @@ export function attr(element, value) {
   const [name, val] = value.split(":", 2)
   element.setAttribute(name, val)
 }
-
-export function morph(element, value) {
-  morphdom(element, value)
-}
